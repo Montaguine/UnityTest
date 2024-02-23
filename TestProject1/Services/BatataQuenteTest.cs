@@ -9,31 +9,16 @@ namespace TestProject1.Services
 {
     public class BatataQuenteTest
     {
-        [Fact]
-        public void Test1()
+        [Theory]
+        [InlineData(-3)]
+        [InlineData(-10)]
+        [InlineData(-1)]
+        [InlineData(-5000)]
+        public void Verificar_se_lanca_excecao_com_quantidade_de_jogadores_negativa(int numeroDeJogadores)
         {
-            var palavrasPorTamanho = new PalavrasPorTamanho();
+            var _sut = new HotPotatoGameService();
 
-            var result = palavrasPorTamanho.SelecionarPalavras(new List<string>
-            {
-                "Idiossincrasia",
-                "Ambivalente",
-                "Quimérica",
-                "Perpendicular",
-                "Efêmero",
-                "Pletora", "Obnubilado", "Xilografia", "Quixote", "Inefável"
-            });
-
-            var expected_Result = new[]
-            {
-                "Idiossincrasia",
-                "Ambivalente",
-                "Perpendicular",
-                "Obnubilado",
-                "Xilografia"
-            };
-
-            Assert.Equal(expected_Result, result);
+            Assert.Throws<ArgumentException>(() => _sut.PlayHotPotato(numeroDeJogadores));
         }
     }
 }
