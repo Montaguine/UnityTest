@@ -9,10 +9,12 @@ namespace UnityTest.Controllers
     {
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly HotPotatoGameService _hotPotatoGameService;
 
-        public TestesController(ILogger<WeatherForecastController> logger)
+        public TestesController(ILogger<WeatherForecastController> logger, HotPotatoGameService service)
         {
             _logger = logger;
+            _hotPotatoGameService = service;
         }
 
         [HttpPost]
@@ -21,6 +23,12 @@ namespace UnityTest.Controllers
             var palavrasPorTamanho = new PalavrasPorTamanho();
             var result = palavrasPorTamanho.SelecionarPalavras(palavras);
             return Ok(result);
+        }
+
+        [HttpPost("hotPotato")]
+        public ActionResult<string> Play([FromBody] int numberOfPlayers)
+        {
+            return _hotPotatoGameService.PlayHotPotato(numberOfPlayers);
         }
     }
 }
