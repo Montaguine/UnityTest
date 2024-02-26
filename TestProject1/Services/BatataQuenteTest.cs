@@ -20,5 +20,16 @@ namespace TestProject1.Services
 
             Assert.Throws<ArgumentException>(() => _sut.PlayHotPotato(numeroDeJogadores));
         }
+
+        [Theory]
+        [InlineData(-1)]
+        [InlineData(0)]
+        [InlineData(1)]
+        public void Verificar_numero_de_jogadores_invalido(int jogadores)
+        {
+            var _sut = new HotPotatoGameService();
+
+            Assert.Throws<ArgumentException>(() => _sut.PlayHotPotato(jogadores));
+        }
     }
 }
